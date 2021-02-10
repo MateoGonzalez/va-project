@@ -1,0 +1,300 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.Resume-title {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5em 0;
+}
+
+.Timeline-container {
+  padding-bottom: 3rem;
+}
+
+.Timeline-container,
+.Map-container {
+  flex: 1;
+}
+
+.CityMap-Container {
+  flex: 2;
+  position: relative;
+}
+
+.Container {
+  flex: 1;
+}
+
+.Map-GraphTable {
+  height: 400px;
+  overflow: scroll;
+}
+
+.Map-graph-detail {
+  width: 100%;
+}
+
+.Map-GraphTable li {
+  padding: 0.5rem 1rem;
+  list-style: none;
+  text-align: left;
+  border-bottom: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.Map-GraphTable li:hover {
+  background-color: lightgray;
+}
+
+.Map-GraphTable li:last-child {
+  border-bottom: 0;
+}
+
+.Map-toolbox {
+  text-align: left;
+  padding: 1rem;
+}
+
+.Timeline-container-panel,
+.Stats-Container,
+.Map-toolbox {
+  border: 1px lightgray solid;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.Map-toolbox-mobile-types {
+  height: 210px;
+  width: 310px;
+}
+
+.Map-toolbox-mobile-types-options {
+  padding: 0 4rem;
+}
+
+.Map {
+  width: 730px;
+  padding: 1em;
+}
+
+.Map-container {
+  align-items: end;
+  display: flex;
+  justify-content: left;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.Map-box svg {
+  height: 100%;
+  width: 100%;
+}
+
+.Row {
+  padding-top: 3rem;
+}
+
+.Player-button {
+  border: none;
+  border-radius: 15px;
+  padding: 0;
+  background: #fff;
+}
+
+.Player {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+  align-items: center;
+  height: 100px;
+}
+
+.Player-container {
+  height: 40px;
+}
+
+.Box {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+}
+
+.Map-GraphTable-item {
+  display: flex;
+}
+
+.Map-GraphTable-item-name,
+.Map-graph-mini,
+.Map-graph-diff {
+  flex: 1;
+}
+
+.Map-graph-mini {
+  display: inline-block;
+}
+
+.Map-graph-mini svg {
+  max-width: 80px;
+}
+
+.Map-GraphTable ul {
+  padding: 0;
+}
+
+.Map-GraphTable-minutes {
+  width: 500px;
+  text-align: left;
+}
+
+.Map-GraphTable-minutes .Badge {
+  margin-right: 1em;
+  cursor: pointer;
+}
+
+.Map-GraphTable-detail {
+  text-align: left;
+}
+
+.Map-GraphTable-detail .BackButton {
+  margin-bottom: 2rem;
+}
+
+.Map-GraphTable-detail,
+.Map-GraphTable-minutes {
+  padding: 1em;
+}
+
+.Map-GraphTable-summary {
+  display: flex;
+  width: 600px;
+}
+
+.Map-GraphTable-summary-min,
+.Map-GraphTable-summary-max {
+  flex: 1;
+}
+
+.Map-GraphTable-summary-value-container {
+  width: 150px;
+  height: 150px;
+  border: 1px solid;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.Map-GraphTable-summary-value {
+  font-size: 30px;
+}
+
+.Map-GraphTable-summary-type {
+  padding-bottom: 0.5em;
+}
+
+.Map-GraphTable-summary-max-value,
+.Map-GraphTable-summary-min-value {
+  cursor: pointer;
+}
+
+.Resume {
+  display: flex;
+  padding: 1.5em 0;
+  background-color: lavender;
+  align-items: center;
+  padding: 1rem 3rem;
+  justify-content: center;
+}
+
+.Navbar {
+  background-color: blueviolet;
+  text-align: left;
+  padding: 1em;
+}
+
+.Navbar-title {
+  color: white;
+  display: inline-block;
+  margin: 0;
+}
+
+.Resume-global-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+}
+
+.Resume-global-state-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  margin: 0 auto;
+}
+
+.Resume-global-state-symbol.positive {
+  border: 10px solid green;
+}
+
+.Resume-global-state-symbol.warning {
+  border: 10px solid gold;
+}
+
+.Resume-global-state-symbol.danger {
+  border: 10px solid red;
+}
+
+.Resume-global-state-symbol.warning svg {
+  fill: gold;
+}
+
+.Resume-global-state-symbol.danger svg {
+  fill: red;
+}
+
+.Resume-global-state-text.danger {
+  color: red;
+}
+
+.Resume-global-state-text.warning {
+  color: gold;
+}
+
+.Resume-global-state-text.normal {
+  color: green;
+}
+
+.Timeline-container-panel {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.City-legend {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  text-align: left;
+}
+
+.City-legend-color-container {
+  display: flex;
+  align-items: center;
+  padding-top: 1em;
+  font-weight: 700;
+}
+
+.City-legend-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}

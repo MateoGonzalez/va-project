@@ -1,0 +1,241 @@
+  "glyphLocations": [
+    {
+      "index": 0,
+      "key": "1",
+      "latitude": 0.2,
+      "longitude": -119.95,
+      "expectedBand": 2
+    },
+    {
+      "index": 1,
+      "key": "2",
+      "latitude": 0.2,
+      "longitude": -119.92,
+      "expectedBand": 2
+    },
+    {
+      "index": 2,
+      "key": "3",
+      "latitude": 0.2,
+      "longitude": -119.85,
+      "expectedBand": 2
+    },
+    {
+      "index": 3,
+      "key": "4",
+      "latitude": 0.165,
+      "longitude": -119.8,
+      "expectedBand": 2
+    },
+    {
+      "index": 4,
+      "key": "5",
+      "latitude": 0.125,
+      "longitude": -119.92,
+      "expectedBand": 2
+    },
+    {
+      "index": 5,
+      "key": "6",
+      "latitude": 0.15,
+      "longitude": -119.92,
+      "expectedBand": 2
+    },
+    {
+      "index": 6,
+      "key": "7",
+      "latitude": 0.125,
+      "longitude": -119.715,
+      "expectedBand": 2
+    },
+    {
+      "index": 7,
+      "key": "8",
+      "latitude": 0.05,
+      "longitude": -119.73,
+      "expectedBand": 2
+    },
+    {
+      "index": 8,
+      "key": "9",
+      "latitude": 0.05,
+      "longitude": -119.81,
+      "expectedBand": 2
+    },
+    {
+      "index": 9,
+      "key": "10",
+      "latitude": 0.08,
+      "longitude": -119.775,
+      "expectedBand": 2
+    },
+    {
+      "index": 10,
+      "key": "11",
+      "latitude": 0.08,
+      "longitude": -119.755,
+      "expectedBand": 2
+    },
+    {
+      "index": 11,
+      "key": "12",
+      "latitude": 0.11,
+      "longitude": -119.755,
+      "expectedBand": 2
+    },
+    {
+      "index": 12,
+      "key": "13",
+      "latitude": 0.11,
+      "longitude": -119.78,
+      "expectedBand": 2
+    },
+    {
+      "index": 13,
+      "key": "14",
+      "latitude": 0.16,
+      "longitude": -119.86,
+      "expectedBand": 2
+    },
+    {
+      "index": 14,
+      "key": "15",
+      "latitude": 0.16,
+      "longitude": -119.89,
+      "expectedBand": 2
+    },
+    {
+      "index": 15,
+      "key": "16",
+      "latitude": 0.135,
+      "longitude": -119.89,
+      "expectedBand": 2
+    },
+    {
+      "index": 16,
+      "key": "17",
+      "latitude": 0.09,
+      "longitude": -119.835,
+      "expectedBand": 2
+    },
+    {
+      "index": 17,
+      "key": "18",
+      "latitude": 0.13,
+      "longitude": -119.83,
+      "expectedBand": 2
+    },
+    {
+      "index": 18,
+      "key": "19",
+      "latitude": 0.12,
+      "longitude": -119.86,
+      "expectedBand": 2
+    }
+  ],
+
+
+const array = [];
+      for (let i = 0; i < svg.select("#base_03").node().getTotalLength(); i++) {
+        array.push([
+          svg.select("#base_03").node().getPointAtLength(i).x,
+          svg.select("#base_03").node().getPointAtLength(i).y,
+        ]);
+      }
+      const x = scaleX(-119.85558),
+        y = scaleY(0.18299);
+
+      console.log(x, y, d3.polygonContains(array, [x, y]));
+
+
+function getAreas() {
+      const nodes = d3
+        .select(map.current)
+        .select("#base")
+        .selectAll("path")
+        .nodes();
+
+      const result = nodes.reduce((accum, item) => {
+        const name = item.getAttribute("neighborhoodId");
+
+        accum[name] = [];
+
+        for (let i = 0; i < item.getTotalLength(); i++) {
+          accum[name].push([
+            item.getPointAtLength(i).x,
+            item.getPointAtLength(i).y,
+          ]);
+        }
+
+        return accum;
+      }, {});
+
+      console.log(JSON.stringify(result[19]));
+    }
+
+
+    function test() {
+      const x = scaleX(-119.82861),
+        y = scaleY(0.04147);
+
+      data.layers[3].paths.map((item) => {
+        console.log(d3.polygonContains(item.coordinates, [x, y]), item.index);
+      });
+    }
+
+    const { min, max } = filteredData.reduce(
+      (accum, item) => {
+        if (item.value < accum.min) accum.min = item.value;
+        if (item.value > accum.max) accum.max = item.value;
+
+        return accum;
+      },
+      { min: Infinity, max: -Infinity }
+    );
+
+    setMin(min);
+    setMax(max);
+
+  function filterMobileSensorsByDate(newDate) {
+    const filteredData = mobileData.filter((item) => {
+      return (
+        item.timestamp === newDate &&
+        selectedMobileSensors.includes(item["sensor-id"].toString())
+      );
+    });
+
+    setMobileData(filteredData);
+  }
+
+  function filterSelectedMobileSensors() {
+    const sensorsIds = Object.keys(sensorsType);
+    const filteredData = mobileSensorsData.filter((item) => {
+      return sensorsIds.includes(item["sensor-id"]);
+    });
+
+    setMobileData(filteredData);
+  }
+
+  .style("fill", (d, index, n) => {
+            const x = scaleX(d.long),
+              y = scaleY(d.lat),
+              length = mapData.layers[3].paths.length;
+            let i = 0;
+
+            for (; i < length; i++) {
+              const item = mapData.layers[3].paths[i];
+
+              if (d3.polygonContains(item.coordinates, [x, y])) {
+                break;
+              }
+            }
+
+            const node = d3.select(n[index]);
+            node.attr("color", `${colors[i]}-${i}`);
+
+            return i === length ? OUT_OF_MAP_COLOR : colors[i + 1];
+          });
+
+
+      // const diff = diffMinutes(new Date(item.timestamp), new Date(date));
+      // return diff <= timeDiff && diff >= 0;
