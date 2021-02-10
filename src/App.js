@@ -68,13 +68,13 @@ function App() {
   const [date, setDate] = React.useState(time[0]);
   const [mobileSensorsData, setMobileData] = React.useState([]);
   const [namesEnabled, setNamesCheck] = React.useState(true);
-  const [showUtilities, setShowUtilities] = React.useState(true);
+  const [showUtilities, setShowUtilities] = React.useState(false);
   const [staticEnabled, setStaticCheck] = React.useState(true);
   const [mobileEnabled, setMobileCheck] = React.useState(true);
-  const [staticEnabledOnMap, setStaticOnMapCheck] = React.useState(true);
-  const [mobileEnabledOnMap, setMobileOnMapCheck] = React.useState(true);
+  const [staticEnabledOnMap, setStaticOnMapCheck] = React.useState(false);
+  const [mobileEnabledOnMap, setMobileOnMapCheck] = React.useState(false);
   const [cityMobileValuesEnabled, setCityMobileValuesEnabled] = React.useState(
-    false
+    true
   );
   const [cityStaticValuesEnabled, setCityStaticValuesEnabled] = React.useState(
     true
@@ -296,7 +296,7 @@ function App() {
   return (
     <div className="App">
       <div className="Navbar">
-        <h3 className="Navbar-title">Vast Challenge</h3>
+        <h2 className="Navbar-title">Radiation Monitor</h2>
       </div>
       <div className="Resume">
         <div className="Resume-global-state">
