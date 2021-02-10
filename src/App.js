@@ -13,6 +13,8 @@ import mapData from "./assets/map-data";
 import Switch from "react-bootstrap/Switch";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger"
+import Tooltip from "react-bootstrap/Tooltip"
 
 import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
 import MapConfig from "./config";
@@ -378,79 +380,119 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="Row Map-container">
+      <div className="Row Map-container"> 
         <div className="Map-toolbox">
           <h3>Toolbox</h3>
           <Switch
             id="namesSwitch"
-            label="Names"
+            label="Show Cities Names"
             checked={namesEnabled}
             onChange={() => setNamesCheck((old) => !old)}
           />
           <Switch
             id="utilitiesSwitch"
-            label="Show Utilities"
+            label="Show Cities Utilities"
             checked={showUtilities}
             onChange={() => setShowUtilities((old) => !old)}
           />
-          <Switch
-            id="showStaticSwitch"
-            label="Show Static sensors on map"
-            checked={staticEnabledOnMap}
-            onChange={() => setStaticOnMapCheck((old) => !old)}
-          />
-          <Switch
-            id="showMobileSwitch"
-            label="Show Mobile sensors on map"
-            checked={mobileEnabledOnMap}
-            onChange={() => setMobileOnMapCheck((old) => !old)}
-          />
+          <hr></hr>
           <Switch
             id="staticSwitch"
             label="Static sensors"
             checked={staticEnabled}
-            onChange={() => setStaticCheck((old) => !old)}
+            onChange={() => {
+              setStaticCheck((old) => !old);
+              setCityStaticValuesEnabled((old) => false);
+              setStaticOnMapCheck((old) => false);
+            }}
           />
+          <div class="Map-toolbox-static-options">
+            <Switch
+              id="cityStaticValues"
+              label="Show Cities Static Measures"
+              disabled = {staticEnabled ? false : true}
+              checked={staticEnabled ? cityStaticValuesEnabled : false}
+              onChange={() => setCityStaticValuesEnabled((old) => !old)}
+            />
+            <Switch
+              id="showStaticSwitch"
+              label="Show Static Sensors Locations"
+              disabled = {staticEnabled ? false : true}
+              checked={staticEnabled ? staticEnabledOnMap : false}
+              onChange={() => setStaticOnMapCheck((old) => !old)}
+            />
+          </div>
+          <hr></hr>
           <Switch
             id="mobileSwitch"
             label="Mobile sensors"
             checked={mobileEnabled}
-            onChange={() => setMobileCheck((old) => !old)}
+            onChange={() => {
+              setMobileCheck((old) => !old);
+              setCityMobileValuesEnabled((old) => false);
+              setMobileOnMapCheck((old) => false);
+              setDotSizeByRadiation((old) => false);
+              setShowTrajectories((old) => false)
+            }}
           />
-          <Switch
-            id="cityMobileValues"
-            label="City mobile Values"
-            checked={cityMobileValuesEnabled}
-            onChange={() => setCityMobileValuesEnabled((old) => !old)}
-          />
-          <Switch
-            id="cityStaticValues"
-            label="City static Values"
-            checked={cityStaticValuesEnabled}
-            onChange={() => setCityStaticValuesEnabled((old) => !old)}
-          />
-          <Switch
-            id="enablePointsThickness"
-            label="Dot size by ratiation"
-            checked={dotSizeByRadiation}
-            onChange={() => setDotSizeByRadiation((old) => !old)}
-          />
-          <div className="Map-toolbox-mobile-types">
-            {mobileEnabled ? (
+          <div class="Map-toolbox-mobile-options">
+            <Switch
+              id="cityMobileValues"
+              label="Show City mobile Values"
+              disabled = {mobileEnabled ? false : true}
+              checked={mobileEnabled ? cityMobileValuesEnabled : false}
+              onChange={() => setCityMobileValuesEnabled((old) => !old)}
+            />
+            <Switch
+              id="showMobileSwitch"
+              label="Show Mobile Sensors Locations"
+              disabled = {mobileEnabled ? false : true}
+              checked={mobileEnabled ? mobileEnabledOnMap : false}
+              onChange={() => setMobileOnMapCheck((old) => !old)}
+            />
+            <div class="Map-toolbox-mobile-options-show-tweaks">
+              <Switch
+                id="enablePointsThickness"
+                label="Dot size by ratiation"
+                disabled = {mobileEnabled && mobileEnabledOnMap ? false : true}
+                checked={mobileEnabled && mobileEnabledOnMap ? dotSizeByRadiation : false}
+                onChange={() => setDotSizeByRadiation((old) => !old)}
+              />
+              <OverlayTrigger
+                key="mapped-trajectory"
+                placement="bottom"
+                overlay={
+                  <Tooltip id="mapped-trajectory-tooltip">
+                    Player must be <strong>{"stopped"}</strong>.
+                  </Tooltip>
+                }
+              >
+              <div class="Map-toolbox-mobile-options-show-tweaks-mappedtrajectory">
+                <Switch
+                  id="enableTrajectories"
+                  label="Mapped trajectories"
+                  disabled = {mobileEnabled && mobileEnabledOnMap && !running ? false : true}
+                  checked={showTrajectories}
+                  onChange={() => setShowTrajectories((old) => !old)}
+                />
+              </div>
+              </OverlayTrigger>
+            </div>
+            <div className="Map-toolbox-mobile-types">
               <>
                 <Form.Group>
                   <Form.Label>
-                    <b>Mobile sensor types: </b>
+                    Available Mobile Sensors:
                   </Form.Label>
                   <Form.Control
                     as="select"
                     multiple
                     value={selectedMobileSensors}
+                    disabled = {mobileEnabled ? false : true}
                     onChange={onMobileSensorsTypeChange}
                   >
                     {Object.keys(sensorsType).map((current) => {
                       const item = sensorsType[current];
-
                       return (
                         <option
                           key={item["sensor-id"]}
@@ -468,22 +510,16 @@ function App() {
                   </Form.Control>
                 </Form.Group>
                 {selectedMobileSensors.length !== sensorsType.length && (
-                  <Button onClick={onSelectAllMobileSensors} variant="primary">
-                    Select All
+                  <Button 
+                    onClick={onSelectAllMobileSensors}
+                    variant="primary"
+                    disabled = {mobileEnabled ? false : true}
+                  >
+                  Select All
                   </Button>
                 )}
-                {running ? null : (
-                  <div className="Row Map-toolbox-mobile-types-options">
-                    <Switch
-                      id="enableTrajectories"
-                      label="Mapped trajectories"
-                      checked={showTrajectories}
-                      onChange={() => setShowTrajectories((old) => !old)}
-                    />
-                  </div>
-                )}
               </>
-            ) : null}
+            </div>
           </div>
         </div>
         <div className="CityMap-Container">

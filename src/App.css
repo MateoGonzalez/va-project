@@ -58,6 +58,14 @@
   padding: 1rem;
 }
 
+.Map-toolbox-static-options{
+  padding: 0 2rem;
+}
+
+.Map-toolbox-mobile-options{
+  padding: 0 2rem;
+}
+
 .Timeline-container-panel,
 .Stats-Container,
 .Map-toolbox {
@@ -66,15 +74,23 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+hr {
+  width: 350px;
+}
+
 .Map-toolbox-mobile-types {
   height: 210px;
   width: 310px;
 }
 
 .Map-toolbox-mobile-types-options {
+  padding-top: 0.5rem !important;
   padding: 0 4rem;
 }
 
+.Map-toolbox-mobile-options-show-tweaks {
+  padding: 0 2.5rem;
+}
 .Map {
   width: 730px;
   padding: 1em;
