@@ -147,13 +147,13 @@ function CityMap({
       if (value >= 0 && value <= 35) {
         return 20;
       } else if (value > 35 && value <= 65) {
-        return 30;
-      } else if (value > 65 && value <= 200) {
         return 40;
-      } else if (value > 200 && value <= 1000) {
-        return 50;
-      } else {
+      } else if (value > 65 && value <= 200) {
         return 60;
+      } else if (value > 200 && value <= 1000) {
+        return 80;
+      } else {
+        return 100;
       }
     }
 
