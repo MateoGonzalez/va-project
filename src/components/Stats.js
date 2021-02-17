@@ -9,7 +9,7 @@ const GraphConfig = {
     width: 1000,
     height: 500,
   },
-  margin: { top: 20, right: 30, bottom: 30, left: 40 },
+  margin: { top: 20, right: 30, bottom: 30, left: 80 },
 };
 
 function Stats({
